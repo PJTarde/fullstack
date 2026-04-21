@@ -41,9 +41,9 @@ const Checkout = () => {
         quantity: item.quantity
       })),
       totalPrice: totalAmount + 25,
-      customerName: user.name,
-      customerPhone: user.phone,
-      deliveryAddress: user.address
+      customerName: user.name || "Customer",
+      customerPhone: user.phone || "Not provided",
+      deliveryAddress: user.address || "Not provided"
     };
 
     // 2. If Cash on Delivery, bypass Razorpay entirely
