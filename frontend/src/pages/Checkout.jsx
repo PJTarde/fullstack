@@ -196,7 +196,7 @@ const Checkout = () => {
         {/* Place Order Button */}
         <button
           onClick={handleOrder}
-          disabled={!user.address || !user.phone}
+          disabled={false}
           className="w-full rounded-xl bg-primary py-3.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-warm-brown-light disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Place Order · ₹{totalAmount + 25}
