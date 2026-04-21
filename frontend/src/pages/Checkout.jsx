@@ -3,7 +3,6 @@ import { useCart } from "@/contexts/CartContext";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useAuth } from "@/contexts/AuthContext";
-import { toast } from "react-hot-toast";
 import api from '../api/axios';
 
 /* Razorpay global declaration */
