@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 36 33% 97%;
+    --foreground: 25 25% 14%;
+
+    --card: 36 33% 100%;
+    --card-foreground: 25 25% 14%;
+
+    --popover: 36 33% 100%;
+    --popover-foreground: 25 25% 14%;
+
+    --primary: 24 55% 42%;
+    --primary-foreground: 36 33% 97%;
+
+    --secondary: 350 35% 92%;
+    --secondary-foreground: 350 30% 35%;
+
+    --muted: 35 30% 93%;
+    --muted-foreground: 25 15% 50%;
+
+    --accent: 33 45% 88%;
+    --accent-foreground: 25 25% 14%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 33 25% 88%;
+    --input: 33 25% 88%;
+    --ring: 24 55% 42%;
+
+    --radius: 0.75rem;
+
+    --warm-cream: 40 40% 96%;
+    --warm-beige: 33 30% 90%;
+    --warm-brown: 24 55% 42%;
+    --warm-brown-light: 24 40% 55%;
+    --pastel-pink: 350 35% 92%;
+    --pastel-pink-dark: 350 30% 75%;
+    --gold: 42 70% 55%;
+
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+
+    --shadow-card: 0 2px 12px -2px hsl(25 25% 14% / 0.06);
+    --shadow-card-hover: 0 8px 24px -4px hsl(25 25% 14% / 0.12);
+    --shadow-elevated: 0 12px 32px -8px hsl(25 25% 14% / 0.15);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .font-body {
+    font-family: var(--font-body);
+  }
+}

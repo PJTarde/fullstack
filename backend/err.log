@@ -1,0 +1,21 @@
+﻿Γùç injected env (2) from .env // tip: Γîÿ suppress logs { quiet: true }
+Attempting to connect to MongoDB at: mongodb://127.0.0.1:27017/hariom-bakers
+node : Error connecting 
+to MongoDB: connect 
+ECONNREFUSED 
+127.0.0.1:27017
+At line:1 char:1
++ node index.js 2>&1 | 
+Out-File -FilePath 
+err.log -Encoding utf8
++ ~~~~~~~~~~~~~~~~~~
+    + CategoryInfo       
+       : NotSpecified:   
+  (Error connectin...1   
+ 27.0.0.1:27017:Strin    
+g) [], RemoteExcepti    
+on
+    + FullyQualifiedErro 
+   rId : NativeCommandE  
+  rror
+ 
