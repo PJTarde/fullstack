@@ -17,6 +17,7 @@ import OrderTracking from "./pages/OrderTracking";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Account from "./pages/Account";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -30,15 +31,16 @@ const App = () => (
         <BrowserRouter>
           <Navbar />
           <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/menu" element={<Menu />} />
-            <Route path="/customize" element={<CakeCustomization />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/track-order" element={<OrderTracking />} />
+            <Route path="/" element={<ProtectedRoute><Index /></ProtectedRoute>} />
+            <Route path="/menu" element={<ProtectedRoute><Menu /></ProtectedRoute>} />
+            <Route path="/customize" element={<ProtectedRoute><CakeCustomization /></ProtectedRoute>} />
+            <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+            <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
+            <Route path="/track-order" element={<ProtectedRoute><OrderTracking /></ProtectedRoute>} />
+            <Route path="/account" element={<ProtectedRoute><Account /></ProtectedRoute>} />
+            
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/account" element={<Account />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />

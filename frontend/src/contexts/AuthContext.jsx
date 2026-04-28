@@ -6,13 +6,13 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem("customerInfo");
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("customerInfo");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+    // Already handled in initial state
   }, []);
 
   const login = (userData) => {
