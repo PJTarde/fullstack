@@ -15,12 +15,14 @@ const Register = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    setError("");
+
     try {
       const { data } = await api.post("/users/register", {
-        name,
-        email,
+        name: name.trim(),
+        email: email.trim().toLowerCase(),
         password,
-        phone,
+        phone: phone.trim(),
       });
       login(data);
       navigate("/");
@@ -47,62 +49,26 @@ const Register = () => {
         <form onSubmit={submitHandler} className="space-y-4">
           <div>
             <label className="mb-1 block text-sm font-medium text-muted-foreground">Full Name</label>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full rounded-lg border border-border bg-transparent px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-primary/20"
-              required
-            />
+            <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full rounded-lg border border-border bg-transparent px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-primary/20" required />
           </div>
-
           <div>
             <label className="mb-1 block text-sm font-medium text-muted-foreground">Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-lg border border-border bg-transparent px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-primary/20"
-              required
-            />
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full rounded-lg border border-border bg-transparent px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-primary/20" required />
           </div>
-
           <div>
             <label className="mb-1 block text-sm font-medium text-muted-foreground">Phone Number</label>
-            <input
-              type="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              className="w-full rounded-lg border border-border bg-transparent px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-primary/20"
-              required
-            />
+            <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full rounded-lg border border-border bg-transparent px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-primary/20" required />
           </div>
-
           <div>
             <label className="mb-1 block text-sm font-medium text-muted-foreground">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-lg border border-border bg-transparent px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-primary/20"
-              required
-              minLength={6}
-            />
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full rounded-lg border border-border bg-transparent px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-primary/20" required minLength={6} />
           </div>
-
-          <button
-            type="submit"
-            className="mt-6 w-full rounded-xl bg-primary py-3 text-sm font-semibold text-primary-foreground hover:opacity-90 transition-opacity"
-          >
-            Create Account
-          </button>
+          <button type="submit" className="mt-6 w-full rounded-xl bg-primary py-3 text-sm font-semibold text-primary-foreground hover:opacity-90 transition-opacity">Create Account</button>
         </form>
 
         <p className="mt-6 text-center text-sm text-muted-foreground">
           Already have an account?{" "}
-          <Link to="/login" className="font-medium text-primary hover:underline">
-            Sign In
-          </Link>
+          <Link to="/login" className="font-medium text-primary hover:underline">Sign In</Link>
         </p>
       </motion.div>
     </div>
