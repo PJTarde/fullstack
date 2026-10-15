@@ -13,33 +13,34 @@ const generateToken = (id) => {
 const registerUser = async (req, res) => {
   try {
     const { name, email, password, phone, address } = req.body;
+    const normalizedEmail = email?.trim().toLowerCase();
 
-    const userExists = await User.findOne({ email });
+    if (!name?.trim() || !normalizedEmail || !password) {
+      return res.status(400).json({ message: 'Name, email and password are required' });
+    }
+
+    const userExists = await User.findOne({ email: normalizedEmail });
 
     if (userExists) {
       return res.status(400).json({ message: 'User already exists' });
     }
 
     const user = await User.create({
-      name,
-      email,
+      name: name.trim(),
+      email: normalizedEmail,
       password,
-      phone,
+      phone: phone?.trim(),
       address,
     });
 
-    if (user) {
-      res.status(201).json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        address: user.address,
-        token: generateToken(user._id),
-      });
-    } else {
-      res.status(400).json({ message: 'Invalid user data' });
-    }
+    res.status(201).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      address: user.address,
+      token: generateToken(user._id),
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -51,21 +52,32 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
+    const normalizedEmail = email?.trim().toLowerCase();
 
-    const user = await User.findOne({ email });
-
-    if (user && (await user.matchPassword(password))) {
-      res.json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        address: user.address,
-        token: generateToken(user._id),
-      });
-    } else {
-      res.status(401).json({ message: 'Invalid email or password' });
+    if (!normalizedEmail || !password) {
+      return res.status(400).json({ message: 'Email and password are required' });
     }
+
+    const user = await User.findOne({ email: normalizedEmail });
+
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    const passwordMatches = await user.matchPassword(password);
+
+    if (!passwordMatches) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      address: user.address,
+      token: generateToken(user._id),
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -80,7 +92,7 @@ const updateUserProfile = async (req, res) => {
 
     if (user) {
       user.name = req.body.name || user.name;
-      user.email = req.body.email || user.email;
+      user.email = req.body.email ? req.body.email.trim().toLowerCase() : user.email;
       user.phone = req.body.phone || user.phone;
       user.address = req.body.address || user.address;
 
