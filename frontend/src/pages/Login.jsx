@@ -3,7 +3,6 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import api from '../api/axios';
 import { motion } from "framer-motion";
-import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -14,11 +13,15 @@ const Login = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    setError("");
+
     try {
       const { data } = await api.post("/users/login", {
-        email,
+        email: email.trim().toLowerCase(),
         password,
       });
+
+      // Persist both the customer profile and JWT used by Axios.
       login(data);
       navigate("/");
     } catch (err) {
