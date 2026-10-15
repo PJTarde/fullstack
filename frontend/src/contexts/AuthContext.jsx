@@ -1,5 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react";
-import axios from "axios";
+import { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext();
 
@@ -11,18 +10,21 @@ export const AuthProvider = ({ children }) => {
     return storedUser ? JSON.parse(storedUser) : null;
   });
 
-  useEffect(() => {
-    // Already handled in initial state
-  }, []);
-
   const login = (userData) => {
     setUser(userData);
     localStorage.setItem("customerInfo", JSON.stringify(userData));
+
+    // Axios reads the JWT from this key for authenticated requests.
+    if (userData?.token) {
+      localStorage.setItem("token", userData.token);
+    }
   };
 
   const logout = () => {
     setUser(null);
     localStorage.removeItem("customerInfo");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
   };
 
   return (
